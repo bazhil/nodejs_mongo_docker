@@ -1,0 +1,25 @@
+1) Pull images of mongo and mongo-express:
+    - docker pull mongo
+    - docker pull mongo-express
+2) Create docker network:
+    - docker network create mongo-network
+3) Run mongo with port 27017 in de-attach mode with enviroment values *USERNAME and *PASSWORD,
+with container name and network name:
+    - docker run -p27017:27017 -d \
+    -e MONGO_INITDB_ROOT_USERNAME=admin \
+    -e MONGO_INITDB_ROOT_PASSWORD=password \
+    --name mongodb mongo
+4) Run mongo express with environment params:
+    - docker run -d \
+    -p 8081:8081 \
+    -e ME_CONFIG_MONGODB_ADMINUSERNAME=admin \
+    -e ME_CONFIG_MONGODB_ADMINPASSWORD=password \
+    --net mongo-network \
+    --name mongo-express \
+    -e ME_CONFIG_MONGODB_SERVER=mongodb \
+    mongo-express
+5) Open link http://localhost:8081
+6) Start apps:
+    - npm install
+    - node server.js
+7) Use app: http://localhost:3000
